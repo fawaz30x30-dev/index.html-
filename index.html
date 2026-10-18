@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>بطاقة العربة</title>
+<style>
+:root{--bg:#f4f1ea;--card:#fff;--ink:#1f2a1f;--mute:#6b7466;--acc:#4b5d3a;--onacc:#fff;--line:#e0dccf;--ok:#2e7d32;--warn:#b26a00;--bad:#b3261e;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151a14;--card:#1e251c;--ink:#ecefe6;--mute:#9aa593;--acc:#9cb584;--onacc:#151a14;--line:#303a2d;--ok:#7bc47f;--warn:#e0a040;--bad:#f2867f}}
+:root[data-theme="dark"]{--bg:#151a14;--card:#1e251c;--ink:#ecefe6;--mute:#9aa593;--acc:#9cb584;--onacc:#151a14;--line:#303a2d;--ok:#7bc47f;--warn:#e0a040;--bad:#f2867f}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Tahoma,"Segoe UI",Arial,sans-serif;line-height:1.6}
+.wrap{max-width:560px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+.card h2{font-size:15px;margin:0 0 10px;color:var(--acc)}
+.top{display:flex;gap:14px;align-items:center}
+.top .info{flex:1}
+h1{margin:0 0 2px;font-size:20px}
+.sub{color:var(--mute);font-size:14px}
+#qr{background:#fff;padding:8px;border-radius:10px;line-height:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.f{background:var(--bg);border-radius:10px;padding:8px 10px}
+.f small{display:block;color:var(--mute);font-size:12px}
+.f b{font-size:15px}
+.full{grid-column:1/-1}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.row:first-of-type{border-top:0}
+.row span.d{color:var(--mute);font-size:13px}
+.tag{display:inline-block;padding:1px 10px;border-radius:99px;font-size:12px;border:1px solid currentColor;white-space:nowrap}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+.none{color:var(--mute);font-size:14px}
+input,select{font-family:inherit;font-size:14px;width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.er{display:flex;flex-direction:column;gap:6px;padding:10px 0;border-top:1px solid var(--line)}
+.er:first-of-type{border-top:0}
+.er .two{display:flex;gap:6px}
+button{background:var(--acc);color:var(--onacc);border:0;border-radius:10px;padding:10px 18px;font-size:15px;font-family:inherit}
+button.g{background:transparent;color:var(--acc);border:1px solid var(--acc)}
+button.x{background:transparent;color:var(--bad);border:1px solid var(--bad);padding:8px 12px}
+.bar{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin:6px 0 20px}
+.bar input{width:120px;text-align:center;letter-spacing:6px}
+#msg{text-align:center;font-size:14px;min-height:22px;color:var(--bad)}
+.foot{text-align:center;color:var(--mute);font-size:12px;margin:6px 0 14px}
+@media print{.bar,#msg{display:none}}
+</style>
+</head>
+<body>
+<div class="wrap"><div id="app"></div><div id="msg"></div><div id="bar" class="bar"></div></div>
+<script type="application/json" id="data">{"name":"نيسان بابين","number":"2-2-4102","make":"2010","driver":"محمد صالح الدخيل الله ","pmNow":[{"t":"تغيير زيت المحرك والفلتر وزيادة ماء الرديتر ","d":"2026-10-10","s":"done"},{"t":"فحص الفرامل والإطارات","d":"2026-10-14","s":"done"}],"pmNext":[{"t":"","d":"2027-01-14","s":"sched"}],"faults":[]}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+var DATA=JSON.parse(document.getElementById("data").textContent);
+var PIN="1418",edit=false,asking=false;
+var ST={done:["تمت","ok"],prog:["قيد التنفيذ","warn"],sched:["مجدولة","warn"],fix:["قيد الإصلاح","warn"],open:["مفتوح","bad"],closed:["مغلق","ok"]};
+var SECS=[["pmNow","الصيانة الوقائية الحالية"],["pmNext","الصيانة الوقائية القادمة"],["faults","الأعطال"]];
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function fld(label,key,full){
+  return '<div class="f'+(full?' full':'')+'"><small>'+label+'</small>'+(edit?'<input data-p="'+key+'" value="'+esc(DATA[key])+'">':'<b>'+esc(DATA[key])+'</b>')+'</div>';
+}
+function sec(key,title){
+  var L=DATA[key],h='<div class="card"><h2>'+title+'</h2>';
+  if(!L.length)h+='<div class="none">لا يوجد</div>';
+  L.forEach(function(r,i){
+    if(edit){
+      var opts=Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===r.s?' selected':'')+'>'+ST[k][0]+'</option>'}).join("");
+      h+='<div class="er"><input data-l="'+key+'" data-i="'+i+'" data-k="t" value="'+esc(r.t)+'" placeholder="الوصف"><div class="two"><input type="date" data-l="'+key+'" data-i="'+i+'" data-k="d" value="'+esc(r.d)+'"><select data-l="'+key+'" data-i="'+i+'" data-k="s">'+opts+'</select><button class="x" data-del="'+key+':'+i+'">حذف</button></div></div>';
+    }else{
+      var s=ST[r.s]||ST.sched;
+      h+='<div class="row"><div>'+esc(r.t)+'<br><span class="d">'+esc(r.d)+'</span></div><span class="tag '+s[1]+'">'+s[0]+'</span></div>';
+    }
+  });
+  if(edit)h+='<button class="g" data-add="'+key+'" style="margin-top:8px">+ إضافة</button>';
+  return h+'</div>';
+}
+function render(){
+  var h='<div class="card"><div class="top"><div class="info">'+(edit?'<input data-p="name" value="'+esc(DATA.name)+'">':'<h1>'+esc(DATA.name)+'</h1>')+'<div class="sub">بطاقة العربة</div></div><div id="qr"></div></div><div class="grid">'
+    +fld("رقم الجيش","number")+fld("الصنع","make")+fld("اسم السائق","driver",true)+'</div></div>';
+  SECS.forEach(function(s){h+=sec(s[0],s[1])});
+  h+='<div class="foot">امسح الرمز لفتح هذه البطاقة</div>';
+  $("app").innerHTML=h;
+  try{new QRCode($("qr"),{text:location.href,width:96,height:96,colorDark:"#000000",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M})}catch(e){}
+  var b;
+  if(edit)b='<button data-act="save">💾 تنزيل الملف المحدّث</button><button class="g" data-act="cancel">إلغاء</button>';
+  else if(asking)b='<input id="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="الرمز"><button data-act="ok">تأكيد</button><button class="g" data-act="cancel">إلغاء</button>';
+  else b='<button class="g" data-act="ask">✏️ تعديل</button>';
+  $("bar").innerHTML=b;
+  if(asking){var p=$("pin");if(p){p.focus();p.addEventListener("keydown",function(e){if(e.key==="Enter")tryPin()})}}
+}
+function msg(t){$("msg").textContent=t||""}
+function tryPin(){
+  if($("pin").value===PIN){edit=true;asking=false;msg("");render()}
+  else{msg("الرمز غير صحيح");$("pin").value=""}
+}
+function save(){
+  var c=document.documentElement.cloneNode(true);
+  c.querySelector("#app").innerHTML="";c.querySelector("#bar").innerHTML="";c.querySelector("#msg").textContent="";
+  c.querySelector("#data").textContent=JSON.stringify(DATA).replace(/</g,"\\u003c");
+  var blob=new Blob(["<!DOCTYPE html>\n"+c.outerHTML],{type:"text/html"});
+  var u=URL.createObjectURL(blob),l=document.createElement("a");
+  l.href=u;l.download="index.html";document.body.appendChild(l);l.click();l.remove();
+  setTimeout(function(){URL.revokeObjectURL(u)},3000);
+  msg("تم تنزيل الملف المحدّث. ارفعه على الاستضافة مكان القديم.");
+}
+document.addEventListener("click",function(e){
+  var t=e.target.closest("button");if(!t)return;
+  var act=t.dataset.act;
+  if(act==="ask"){asking=true;render()}
+  else if(act==="cancel"){location.reload()}
+  else if(act==="ok")tryPin();
+  else if(act==="save")save();
+  else if(t.dataset.add){DATA[t.dataset.add].push({t:"",d:"",s:"open"});render()}
+  else if(t.dataset.del){var p=t.dataset.del.split(":");DATA[p[0]].splice(+p[1],1);render()}
+});
+document.addEventListener("input",function(e){
+  var t=e.target;
+  if(t.dataset.p)DATA[t.dataset.p]=t.value;
+  else if(t.dataset.l)DATA[t.dataset.l][+t.dataset.i][t.dataset.k]=t.value;
+});
+render();
+</script>
+
+
+</body></html>
