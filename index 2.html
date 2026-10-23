@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>عربات الوحدة</title>
+<style>
+:root{--bg:#f4f1ea;--card:#fff;--ink:#1f2a1f;--mute:#6b7466;--acc:#4b5d3a;--onacc:#fff;--line:#e0dccf;--ok:#2e7d32;--warn:#b26a00;--bad:#b3261e}
+@media (prefers-color-scheme:dark){:root{--bg:#151a14;--card:#1e251c;--ink:#ecefe6;--mute:#9aa593;--acc:#9cb584;--onacc:#151a14;--line:#303a2d;--ok:#7bc47f;--warn:#e0a040;--bad:#f2867f}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Tahoma,"Segoe UI",Arial,sans-serif;line-height:1.6;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.wrap{max-width:600px;margin:0 auto;padding:16px}
+a{color:inherit;text-decoration:none}
+[data-go]{cursor:pointer}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+.card h2{font-size:15px;margin:0 0 10px;color:var(--acc)}
+.top{display:flex;gap:14px;align-items:center}
+.top .info{flex:1}
+h1{margin:0 0 2px;font-size:20px}
+.sub{color:var(--mute);font-size:14px}
+.qr{width:110px;background:#fff;padding:4px;border-radius:10px;line-height:0}
+.qr canvas{width:100%;height:auto}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.f{background:var(--bg);border-radius:10px;padding:8px 10px}
+.f small{display:block;color:var(--mute);font-size:12px}
+.f b{font-size:15px}
+.full{grid-column:1/-1}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 0;border-top:1px solid var(--line);font-size:14px}
+.row:first-of-type{border-top:0}
+.d{color:var(--mute);font-size:13px}
+.tag{display:inline-block;padding:1px 10px;border-radius:99px;font-size:12px;border:1px solid currentColor;white-space:nowrap}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+.none{color:var(--mute);font-size:14px}
+input,select,textarea{font-family:inherit;font-size:14px;width:100%;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--card);color:var(--ink)}
+.er{display:flex;flex-direction:column;gap:6px;padding:10px 0;border-top:1px solid var(--line)}
+.two{display:flex;gap:6px}
+button{background:var(--acc);color:var(--onacc);border:0;border-radius:10px;padding:10px 18px;font-size:15px;font-family:inherit}
+button.g{background:transparent;color:var(--acc);border:1px solid var(--acc)}
+button.x{background:transparent;color:var(--bad);border:1px solid var(--bad);padding:8px 12px}
+.bar{display:flex;gap:8px;justify-content:center;align-items:center;flex-wrap:wrap;margin:6px 0 20px}
+.bar input{width:120px;text-align:center;letter-spacing:6px}
+#msg{text-align:center;font-size:14px;min-height:22px;color:var(--bad)}
+.item{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.item b{font-size:16px}
+.back{display:inline-block;margin-bottom:12px;color:var(--acc);font-size:14px}
+.pg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.pq{text-align:center;border:1px solid var(--line);border-radius:12px;padding:10px;background:var(--card);break-inside:avoid}
+.pq .qr{width:100%;margin:0 auto 6px}
+.pq b{display:block;font-size:14px}
+.pq span{font-size:13px;color:var(--mute)}
+@media (max-width:480px){.pg{grid-template-columns:repeat(2,1fr)}}
+@media print{body{background:#fff;color:#000}.bar,#msg,.back{display:none}.wrap{max-width:none;padding:0}.pg{grid-template-columns:repeat(3,1fr)}.pq{border-color:#999;background:#fff}.pq span{color:#333}}
+</style>
+</head>
+<body>
+<div class="wrap"><div id="app"></div><div id="msg"></div><div id="bar" class="bar"></div></div>
+<script type="application/json" id="data">{"vehicles": [{"name": "نيسان بابين", "number": "2-2-4102", "make": "2010", "driver": "محمد صالح الدخيل الله", "faults": [], "pm": [{"t": "تغيير زيت المحرك والفلتر وزيادة ماء الرديتر + فحص الفرامل والإطارات", "d": "1448-04-29", "s": "done"}, {"t": "", "d": "1448-08-06", "s": "sched"}, {"t": "", "d": "", "s": "sched"}, {"t": "", "d": "", "s": "sched"}], "unit": "سرية القيادة مج ل ٦"}, {"name": "جيب همر", "number": "3-1-5614", "make": "2012", "driver": "فهد محمد الشديد", "pm": [{"t": "", "d": "1448-02-06", "s": "done"}, {"t": "", "d": "1448-05-06", "s": "done"}, {"t": "", "d": "1448-08-06", "s": "sched"}, {"t": "", "d": "1448-11-06", "s": "sched"}], "faults": [{"t": "بطارية", "d": "1446-02-06", "s": "open"}], "unit": "سرية القيادة مج ل ٦"}, {"name": "جيب همر", "number": "3-1-5673", "make": "2012", "driver": "محمد مبارك الشريف", "pm": [{"t": "", "d": "1448-02-06", "s": "done"}, {"t": "", "d": "1448-05-06", "s": "done"}, {"t": "", "d": "1448-08-06", "s": "sched"}, {"t": "", "d": "1448-11-06", "s": "sched"}], "faults": [{"t": "بطارية", "d": "1446-02-06", "s": "open"}], "unit": "سرية القيادة مج ل ٦"}, {"name": "تاترا", "number": "1-5-4120", "make": "2014", "driver": "فهد زايد المطيري", "pm": [{"t": "", "d": "1448-01-06", "s": "done"}, {"t": "", "d": "1448-04-06", "s": "done"}, {"t": "", "d": "1448-07-06", "s": "sched"}, {"t": "", "d": "1448-10-06", "s": "sched"}], "faults": [], "unit": "سرية القيادة مج ل ٦"}], "units": ["سرية القيادة مج ل ٦"]}</script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script>
+var DATA=JSON.parse(document.getElementById("data").textContent);
+var PIN="1418",edit=false,asking=false,dirty=false,Q="",UF="",cur=null,pinFor="",admin=false;
+try{admin=sessionStorage.getItem("adm")==="1"}catch(e){}
+function setAdmin(v){admin=v;try{v?sessionStorage.setItem("adm","1"):sessionStorage.removeItem("adm")}catch(e){}}
+var ST={done:["تمت","ok"],prog:["قيد التنفيذ","warn"],sched:["مجدولة","warn"],fix:["قيد الإصلاح","warn"],open:["مفتوح","bad"],closed:["مغلق","ok"]};
+var SECS=[["faults","الأعطال (التاريخ هجري)"]];
+var $=function(i){return document.getElementById(i)};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var QN=["الربع الأول","الربع الثاني","الربع الثالث","الربع الرابع"];
+function pad(n){return (n<10?"0":"")+n}
+function toH(g){
+  var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(g||"");
+  if(!m||+m[1]<1700)return g||"";
+  var d=new Date(Date.UTC(+m[1],+m[2]-1,+m[3],12)),o={};
+  new Intl.DateTimeFormat("en-u-ca-islamic-umalqura-nu-latn",{year:"numeric",month:"2-digit",day:"2-digit",timeZone:"UTC"}).formatToParts(d).forEach(function(p){o[p.type]=p.value});
+  return o.year+"-"+o.month+"-"+o.day;
+}
+function today(){var n=new Date();return toH(n.getFullYear()+"-"+pad(n.getMonth()+1)+"-"+pad(n.getDate()))}
+function valid(d){var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d||"");return !!m&&+m[2]>=1&&+m[2]<=12&&+m[3]>=1&&+m[3]<=30}
+function addM(d,k){
+  var m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d),y=+m[1],mo=+m[2]-1+k,dd=Math.min(+m[3],29);
+  y+=Math.floor(mo/12);mo=mo%12;
+  return y+"-"+pad(mo+1)+"-"+pad(dd);
+}
+function newV(n,num,mk,dr,un){return{name:n,number:num,make:mk||"",driver:dr||"",unit:un||"",pm:[0,1,2,3].map(function(){return{t:"",d:"",s:"sched"}}),faults:[]}}
+function migrate(v){
+  if(v.unit==null)v.unit="";
+  if(!v.pm){
+    var a=v.pmNow||[],b=v.pmNext||[];
+    v.pm=[0,1,2,3].map(function(){return{t:"",d:"",s:"sched"}});
+    if(a.length)v.pm[0]={t:a.map(function(x){return x.t}).filter(Boolean).join(" + "),d:toH(a[0].d),s:a.every(function(x){return x.s==="done"})?"done":"sched"};
+    if(b.length)v.pm[1]={t:b[0].t||"",d:toH(b[0].d),s:"sched"};
+    delete v.pmNow;delete v.pmNext;
+  }
+  (v.faults||[]).forEach(function(f){f.d=toH(f.d)});
+}
+function pmState(v){
+  var t=today(),nx=-1;
+  v.pm.forEach(function(r,i){if(nx<0&&r.s!=="done"&&r.d&&r.d>=t)nx=i});
+  return v.pm.map(function(r,i){
+    if(r.s==="done")return["تمت","ok"];
+    if(!r.d)return["بدون تاريخ","none"];
+    if(r.d<t)return["متأخرة","bad"];
+    return i===nx?["القادمة","warn"]:["مجدولة","warn"];
+  });
+}
+function pmSec(){
+  var st=pmState(cur),h='<div class="card"><h2>الصيانة الوقائية — ربع سنوية (هجري)</h2>';
+  cur.pm.forEach(function(r,i){
+    if(edit){
+      var o=["sched","prog","done"].map(function(k){return '<option value="'+k+'"'+(k===r.s?' selected':'')+'>'+ST[k][0]+'</option>'}).join("");
+      h+='<div class="er"><div class="d">'+QN[i]+'</div><input data-l="pm" data-i="'+i+'" data-k="d" value="'+esc(r.d)+'" placeholder="1448-01-02" maxlength="10" inputmode="numeric"><input data-l="pm" data-i="'+i+'" data-k="t" value="'+esc(r.t)+'" placeholder="الأعمال (اختياري)"><select data-l="pm" data-i="'+i+'" data-k="s">'+o+'</select></div>';
+    }else{
+      h+='<div class="row"><div><b>'+QN[i]+'</b><br><span class="d">'+(r.d?esc(r.d)+' هـ':'— بدون تاريخ')+'</span>'+(r.t?'<br><span class="d">'+esc(r.t)+'</span>':'')+'</div><span class="tag '+st[i][1]+'">'+st[i][0]+'</span></div>';
+    }
+  });
+  if(edit)h+='<button class="g" data-act="gen" style="margin-top:8px">ولّد باقي الأرباع من تاريخ الربع الأول</button>';
+  return h+'</div>';
+}
+var route=null;
+function P(){return new URLSearchParams(route!==null?route:location.search)}
+function vlink(n){return location.pathname+"?v="+encodeURIComponent(n)}
+function find(n){return DATA.vehicles.filter(function(v){return v.number===n})[0]}
+function msg(t){$("msg").textContent=t||""}
+function qr(el,text){
+  try{
+    qrcode.stringToBytes=function(s){return Array.from(new TextEncoder().encode(s))};
+    var o=qrcode(0,"M");o.addData(text,"Byte");o.make();
+    var n=o.getModuleCount(),k=Math.max(3,Math.floor(300/n)),m=4*k,c=document.createElement("canvas");
+    c.width=c.height=n*k+2*m;
+    var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,c.width,c.height);x.fillStyle="#000";
+    for(var r=0;r<n;r++)for(var j=0;j<n;j++)if(o.isDark(r,j))x.fillRect(m+j*k,m+r*k,k,k);
+    el.innerHTML="";el.appendChild(c);
+  }catch(e){el.textContent="تعذّر الرمز"}
+}
+function full(n){return location.origin+vlink(n)}
+function sec(key,title){
+  var L=cur[key],h='<div class="card"><h2>'+title+'</h2>';
+  if(!L.length)h+='<div class="none">لا يوجد</div>';
+  L.forEach(function(r,i){
+    if(edit){
+      var o=Object.keys(ST).map(function(k){return '<option value="'+k+'"'+(k===r.s?' selected':'')+'>'+ST[k][0]+'</option>'}).join("");
+      h+='<div class="er"><input data-l="'+key+'" data-i="'+i+'" data-k="t" value="'+esc(r.t)+'" placeholder="الوصف"><div class="two"><input data-l="'+key+'" data-i="'+i+'" data-k="d" value="'+esc(r.d)+'" placeholder="1448-01-02" maxlength="10" inputmode="numeric"><select data-l="'+key+'" data-i="'+i+'" data-k="s">'+o+'</select><button class="x" data-del="'+key+':'+i+'">حذف</button></div></div>';
+    }else{
+      var s=ST[r.s]||ST.sched;
+      h+='<div class="row"><div>'+(esc(r.t)||"—")+'<br><span class="d">'+(r.d?esc(r.d)+' هـ':"")+'</span></div><span class="tag '+s[1]+'">'+s[0]+'</span></div>';
+    }
+  });
+  if(edit)h+='<button class="g" data-add="'+key+'" style="margin-top:8px">+ إضافة</button>';
+  return h+'</div>';
+}
+function fld(label,key,fl){
+  return '<div class="f'+(fl?' full':'')+'"><small>'+label+'</small>'+(edit?'<input data-f="'+key+'" value="'+esc(cur[key])+'">':'<b>'+esc(cur[key])+'</b>')+'</div>';
+}
+function units(){
+  var u={};(DATA.units||[]).forEach(function(x){if(x)u[x]=1});
+  DATA.vehicles.forEach(function(v){if(v.unit)u[v.unit]=1});
+  return Object.keys(u);
+}
+function unitFld(){
+  if(!edit)return '<div class="f full"><small>السرية</small><b>'+(esc(cur.unit)||"—")+'</b></div>';
+  var o='<option value="">(بدون)</option>'+units().map(function(u){return '<option value="'+esc(u)+'"'+(u===cur.unit?' selected':'')+'>'+esc(u)+'</option>'}).join("")+'<option value="__new">➕ سرية جديدة…</option>';
+  return '<div class="f full"><small>السرية</small><select data-f="unit">'+o+'</select></div>';
+}
+function overdue(v){return pmState(v).some(function(x){return x[0]==='متأخرة'})}
+function listHtml(){
+  var q=Q.trim().toLowerCase();
+  var a=DATA.vehicles.filter(function(v){return (!UF||v.unit===UF)&&(!q||(v.name+" "+v.number+" "+v.driver+" "+v.make+" "+v.unit).toLowerCase().indexOf(q)>-1)});
+  if(!a.length)return '<div class="none">لا توجد نتائج</div>';
+  return a.map(function(v){
+    var o=v.faults.filter(function(f){return f.s==="open"||f.s==="fix"}).length;
+    return '<a class="card item nav" data-go="'+esc(vlink(v.number))+'" role="link" tabindex="0"><div><b>'+esc(v.name)+'</b><div class="d">'+esc(v.number)+' · '+esc(v.driver)+(v.unit?' · '+esc(v.unit):'')+'</div></div>'+'<span>'+(overdue(v)?'<span class="tag bad">صيانة متأخرة</span> ':'')+(o?'<span class="tag bad">أعطال: '+o+'</span>':'')+'</span></a>';
+  }).join("");
+}
+function lockHtml(){
+  return '<div class="card" style="text-align:center;margin-top:40px"><div style="font-size:40px">🔒</div><h1>عربات الوحدة</h1><p class="sub">أدخل الرمز لعرض كل العربات.<br>لعرض بطاقة عربة امسح الرمز المثبّت عليها.</p><input id="lpin" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="الرمز" style="width:160px;text-align:center;letter-spacing:8px;margin:8px auto;display:block"><button data-act="unlock">دخول</button></div>';
+}
+function render(){
+  var p=P(),h="",b="",locked=false;cur=null;msg("");
+  var back=admin?'<a class="back nav" data-go="'+location.pathname+'" role="link" tabindex="0">← كل العربات</a>':'';
+  if(p.get("print")){
+    if(!admin){locked=true;h=lockHtml()}
+    else{
+      h=back+'<h1>رموز QR للعربات</h1><p class="sub">كل رمز يفتح بطاقة عربته. اطبع واقصّ وألصق كل رمز على عربته.</p><div class="pg">'+
+        DATA.vehicles.map(function(v,i){return '<div class="pq"><div class="qr" id="pq'+i+'"></div><b>'+esc(v.name)+'</b><span>'+esc(v.number)+(v.unit?' · '+esc(v.unit):'')+'</span></div>'}).join("")+'</div>';
+      b='<button data-act="print">🖨 طباعة</button>';
+    }
+  }else if(p.get("v")){
+    cur=find(p.get("v"));
+    if(!cur)h=back+'<div class="card">العربة غير موجودة.</div>';
+    else{
+      h=back+'<div class="card"><div class="top"><div class="info">'+(edit?'<input data-f="name" value="'+esc(cur.name)+'">':'<h1>'+esc(cur.name)+'</h1>')+'<div class="sub">بطاقة العربة</div></div><div class="qr" id="qr"></div></div><div class="grid">'+
+        fld("رقم الجيش","number")+fld("الصنع","make")+unitFld()+fld("اسم السائق","driver",1)+'</div></div>';
+      h+=pmSec();SECS.forEach(function(s){h+=sec(s[0],s[1])});
+      if(edit)h+='<button class="x" data-act="delv" style="width:100%;margin-bottom:14px">حذف هذه العربة</button>';
+    }
+  }else{
+    if(!admin){locked=true;h=lockHtml()}
+    else{
+      h='<h1>عربات الوحدة</h1><p class="sub">عدد العربات: '+DATA.vehicles.length+' · اليوم: '+today()+' هـ</p><input id="q" placeholder="🔎 ابحث بالاسم أو الرقم أو السائق أو السرية" value="'+esc(Q)+'" style="margin:8px 0 10px"><select id="uf" style="margin-bottom:12px"><option value="">كل السرايا</option>'+units().map(function(u){return '<option value="'+esc(u)+'"'+(u===UF?' selected':'')+'>'+esc(u)+'</option>'}).join("")+'</select><div id="list">'+listHtml()+'</div>';
+      if(edit)h+='<div class="card"><h2>إضافة وتعديل جماعي</h2><button class="g" data-act="addv" style="width:100%;margin-bottom:10px">+ إضافة عربة</button><div class="sub" style="margin-bottom:6px">الصق من إكسل: اسم العربة، رقم الجيش، الصنع، السائق، السرية (سطر لكل عربة)</div><textarea id="imp" rows="5"></textarea><button data-act="imp" style="margin-top:8px">استيراد</button></div>';
+    }
+  }
+  $("app").innerHTML=h;
+  if(!locked){
+    if(p.get("print"))DATA.vehicles.forEach(function(v,i){qr($("pq"+i),full(v.number))});
+    else if(cur)qr($("qr"),full(cur.number));
+  }
+  if(locked)b="";
+  else if(!p.get("print")){
+    if(p.get("v")&&!cur)b="";
+    else if(edit)b='<button data-act="save">💾 تنزيل الملف المحدّث</button><button class="g" data-act="done">إنهاء التعديل</button>';
+    else if(asking)b='<input id="pin" type="password" inputmode="numeric" maxlength="4" autocomplete="off" aria-label="الرمز"><button data-act="ok">تأكيد</button><button class="g" data-act="cancel">إلغاء</button>';
+    else{
+      b='<button class="g" data-act="ask">✏️ تعديل</button>';
+      if(admin){
+        if(!p.get("v"))b+='<button class="g" type="button" data-go="'+location.pathname+'?print=1">🖨 طباعة الرموز</button>';
+        b+='<button class="g" data-act="lock">🔒 قفل</button>';
+      }
+    }
+  }
+  $("bar").innerHTML=b;
+  var pe=$("pin")||$("lpin");
+  if(pe){if(asking||locked)pe.focus();pe.addEventListener("keydown",function(e){if(e.key==="Enter")tryPin()})}
+}
+function tryPin(){
+  var el=$("pin")||$("lpin");if(!el)return;
+  if(el.value===PIN){setAdmin(true);asking=false;if(pinFor==="edit")edit=true;pinFor="";render()}
+  else{msg("الرمز غير صحيح");el.value=""}
+}
+function save(){
+  var c=document.documentElement.cloneNode(true);
+  c.querySelector("#app").innerHTML="";c.querySelector("#bar").innerHTML="";c.querySelector("#msg").textContent="";
+  c.querySelector("#data").textContent=JSON.stringify(DATA).replace(/</g,"\\u003c");
+  var blob=new Blob(["<!DOCTYPE html>\n"+c.outerHTML],{type:"text/html"});
+  var u=URL.createObjectURL(blob),l=document.createElement("a");
+  l.href=u;l.download="index.html";document.body.appendChild(l);l.click();l.remove();
+  setTimeout(function(){URL.revokeObjectURL(u)},3000);
+  dirty=false;msg("تم تنزيل الملف المحدّث. ارفعه على الاستضافة مكان القديم.");
+}
+function go(href){var i=href.indexOf("?");route=i>-1?href.slice(i):"";try{history.pushState(null,"",href)}catch(e){}render()}
+function importRows(t){
+  var n=0;
+  t.split(/\r?\n/).forEach(function(line){
+    if(!line.trim())return;
+    var c=line.indexOf("\t")>-1?line.split("\t"):line.split(",");
+    c=c.map(function(x){return x.trim()});
+    if(!c[1]||c[0]==="اسم العربة")return;
+    var v=find(c[1]);
+    if(v){v.name=c[0]||v.name;v.make=c[2]||v.make;v.driver=c[3]||v.driver;if(c[4])v.unit=c[4]}
+    else DATA.vehicles.push(newV(c[0],c[1],c[2],c[3],c[4]));
+    n++;
+  });
+  dirty=true;return n;
+}
+document.addEventListener("click",function(e){
+  var a=e.target.closest("[data-go]");
+  if(a){e.preventDefault();go(a.getAttribute("data-go"));return}
+  var t=e.target.closest("button");if(!t)return;
+  var act=t.dataset.act;
+  if(act==="ask"){if(admin){edit=true}else{asking=true;pinFor="edit"}render()}
+  else if(act==="unlock"){pinFor="unlock";tryPin()}
+  else if(act==="lock"){setAdmin(false);edit=false;asking=false;render()}
+  else if(act==="cancel"){asking=false;pinFor="";render()}
+  else if(act==="ok")tryPin();
+  else if(act==="done"){edit=false;render()}
+  else if(act==="gen"){var d0=cur.pm[0].d;if(!valid(d0))msg("اكتب تاريخ الربع الأول هجريًا بصيغة 1448-01-02");else{for(var k=1;k<4;k++)cur.pm[k].d=addM(d0,3*k);dirty=true;render()}}
+  else if(act==="save")save();
+  else if(act==="print")window.print();
+  else if(act==="addv"){var k=1;while(find("جديد-"+k))k++;DATA.vehicles.push(newV("عربة جديدة","جديد-"+k));dirty=true;go(vlink("جديد-"+k))}
+  else if(act==="delv"){if(confirm("حذف هذه العربة؟")){DATA.vehicles=DATA.vehicles.filter(function(v){return v!==cur});dirty=true;go(location.pathname)}}
+  else if(act==="imp"){var n=importRows($("imp").value);render();msg(n?"تم استيراد "+n+" عربة":"ما وجدت صفوفًا صالحة")}
+  else if(t.dataset.add&&cur){cur[t.dataset.add].push({t:"",d:"",s:"open"});dirty=true;render()}
+  else if(t.dataset.del&&cur){var p=t.dataset.del.split(":");cur[p[0]].splice(+p[1],1);dirty=true;render()}
+});
+document.addEventListener("input",function(e){
+  var t=e.target;
+  if(t.id==="q"){Q=t.value;$("list").innerHTML=listHtml();return}
+  if(!cur)return;
+  if(t.dataset.k==="d"){var v2=t.value.replace(/[٠-٩]/g,function(c){return c.charCodeAt(0)-1632}).replace(/\//g,"-");if(v2!==t.value)t.value=v2}
+  if(t.dataset.f&&t.dataset.f!=="number"&&t.dataset.f!=="unit"){cur[t.dataset.f]=t.value;dirty=true}
+  else if(t.dataset.l){cur[t.dataset.l][+t.dataset.i][t.dataset.k]=t.value;dirty=true}
+});
+document.addEventListener("change",function(e){
+  var t=e.target;
+  if(t.id==="uf"){UF=t.value;$("list").innerHTML=listHtml();return}
+  if(cur&&t.dataset.f==="unit"){
+    if(t.value==="__new"){var nm=(prompt("اسم السرية الجديدة")||"").trim();if(nm){cur.unit=nm;DATA.units=DATA.units||[];if(DATA.units.indexOf(nm)<0)DATA.units.push(nm)}}
+    else cur.unit=t.value;
+    dirty=true;render();return;
+  }
+  if(cur&&t.dataset.k==="d"&&t.value&&!valid(t.value))msg("اكتب التاريخ الهجري بصيغة 1448-01-02");
+  if(cur&&t.dataset.f==="number"){
+    var v=t.value.trim(),o=find(v);
+    if(!v||(o&&o!==cur)){msg("الرقم فارغ أو مكرر");t.value=cur.number;return}
+    cur.number=v;dirty=true;route="?v="+encodeURIComponent(v);try{history.replaceState(null,"",vlink(v))}catch(e){}render();
+    msg("تنبيه: تغيير الرقم يغيّر رابط الـ QR، فاطبع الرمز من جديد.");
+  }
+});
+window.addEventListener("popstate",function(){route=null;render()});
+window.addEventListener("beforeunload",function(e){if(dirty){e.preventDefault();e.returnValue=""}});
+DATA.vehicles.forEach(migrate);
+render();
+</script>
+</body>
+</html>
